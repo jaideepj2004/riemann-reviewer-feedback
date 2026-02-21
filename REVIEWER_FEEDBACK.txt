@@ -1,0 +1,618 @@
+================================================================================
+                    REVIEWER FEEDBACK — READ BEFORE MAKING SUBMISSION FILES
+================================================================================
+Always read this file before creating or editing any submission file. Apply any
+relevant feedback so submissions are accepted on first pass.
+================================================================================
+
+--------------------------------------------------------------------------------
+SUMMARY: ALL REVIEWER FEEDBACK (read this first)
+--------------------------------------------------------------------------------
+
+1. ANSWER FORMAT
+   - Final answer must be a three-digit integer when required (e.g. 009 not 9).
+
+2. PROOF / JUSTIFICATION
+   - Solutions must be fully self-contained. No "carrying out the recursion
+     gives..." or "checking all subsets yields...". Provide a full proof
+     (recurrence + table, or explicit bound) so the answer is verifiable
+     without software or programmatic verification.
+
+3. EXACTNESS IN ARGUMENTS
+   - If you conclude "exactly N" (e.g. exactly 6 real roots), you must give
+     both a lower and an upper bound. "Multiple of 3" alone does not imply
+     "exactly 6" (could be 9, 12, ...). Add an exact root-count step where
+     needed.
+
+4. ORIGINALITY — PROBLEM NOT ORIGINAL (critical)
+   - Submissions must be original. Swapping only values or parameters does
+     NOT make a new task.
+   - Do NOT submit more problems with this structure: polynomial + parameter
+     range + "how many parameters give X real roots (or specific root
+     property)". Six such similar submissions were flagged (see list below).
+   - Do NOT submit problems that are direct specializations of well-known
+     sequences or drill-site material (e.g. Pell-Lucas (1+sqrt(2))^n +
+     (1-sqrt(2))^n, OEIS, Brainly, Tiger Algebra). "Mod 1000" does not make
+     them original.
+   - Use genuinely different problem types: identities, sums, geometry,
+     different combinatorics, etc., and ensure non-trivial original reasoning.
+
+5. TOO EASY (Automated LLM evaluation)
+   - If reviewer feedback says "Difficulty: Too Easy. 0/5 models stumped",
+     do not resubmit the same question; move it to the TOO EASY list below and
+     use harder problems for the target difficulty.
+
+6. SOLUTION FORMAT — STEPS, EXPLANATION, AND TONE
+   - The solution must break content into clear steps; do not leave claims
+     unexplained or unproven.
+   - Every non-obvious claim must be explained or proven in the solution.
+   - Avoid solutions that read as generic or "AI signature detached" (formulaic,
+     unexplained jumps, lack of step-by-step structure). Write in a clear,
+     stepwise, human style with full justification.
+
+--------------------------------------------------------------------------------
+TOO EASY — Submissions (0/5 models stumped; do not resubmit as-is)
+--------------------------------------------------------------------------------
+
+Submission: tr(P(M)) mod 1000 — matrix M, polynomial P(x)=x^8-2x^5+x^3+3x-7
+(SUBMISSION_QUESTION_1_tr_P_M_mod1000.txt or equivalent)
+Date / context: Riemann Phase 2.
+
+Reviewer feedback:
+- General Difficulty: [Automated LLM Evaluation] Difficulty: Too Easy. 0/5 models stumped.
+
+Problem (for reference):
+Let M = [[1,1,0],[0,1,1],[1,0,1]], P(x) = x^8 - 2x^5 + x^3 + 3x - 7.
+Characteristic polynomial χ(λ) = λ^3 - 3λ^2 + 3λ - 2; Cayley–Hamilton χ(M)=0.
+Compute tr(P(M)) (mod 1000). Answer: 183.
+
+Note: Most models solve via eigenvalues (tr(P(M))=P(λ_1)+P(λ_2)+P(λ_3)), χ=(λ-2)(λ^2-λ+1), λ^3=-1 for the quadratic roots, and Vieta. Use a harder variant or a different problem type for target difficulty.
+
+Submission: Quartic with parameters (a,b), four distinct integer roots
+Date / context: Riemann Phase 2.
+
+Reviewer feedback (verbatim):
+- "This problem is far below high school level and not acceptable into the project."
+
+Problem (for reference):
+Find the number of ordered pairs $(a, b)$ of positive integers with $a, b \leq 35$ such that $x^4 - (2a + 2b)x^2 + (a - b)^2 = 0$ has four distinct integer roots.
+
+Action: Do not submit problems at or below high school level; ensure difficulty is appropriate for the project.
+
+--------------------------------------------------------------------------------
+DETAILED FEEDBACK (by submission / topic)
+--------------------------------------------------------------------------------
+
+Submission: f(x)=x^3-3x+1, f°3(x)=x count (SUBMISSION_f_cubic_f_circ_3_x_equals_x_count.txt)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2, reviewer feedback before resubmit.
+
+Feedback received:
+1. The final answer should be a three-digit integer (009 instead of 9).
+2. In step 2, you establish lower bounds (at least some extra roots), but then
+   conclude there are exactly 6 real roots of Q from divisibility-by-3
+   considerations. That conclusion does not follow: a multiple of 3 up to
+   degree 24 could be 6, 9, 12, …, 24. So exactness is missing.
+3. Fix: to make the solution complete, you need one exact root-count step for
+   Q(x) = (f°3(x)-x)/(f(x)-x).
+
+Fixes applied:
+- Answer field and Step 3 now use 009 (three-digit form).
+- Step 2 updated with an explicit upper bound: in each interval (r_1,r_2),
+  (r_2,r_3), (r_3,2], use critical points of f°3 to show h has at most three
+  monotonic segments per interval, hence Q has at most 2 roots per interval;
+  so Q has at most 6 real roots. With lower bound 6, Q has exactly 6.
+
+Second round of reviewer feedback (Step 2 still not fully rigorous):
+Verbatim: "Step 2 is still not fully rigorous. You claim 'The real roots of $Q$
+are exactly the period-3 points (minimal period 3), and they come in 3-cycles,
+so the number of real roots of $Q$ is $0$, $3$, or $6$.' but this isn't fully
+justified. The only obvious restriction is that the total number of real roots
+of $Q$ can't exceed its degree 24, so we could technically have up to 8 real
+3-cycles. You need to provide more justification to why these cases are
+eliminated."
+
+Fix applied: Step 2 was rewritten to (1) state that the number of real roots
+of Q is a multiple of 3 and could a priori be 0, 3, 6, …, 24; (2) prove a
+lower bound of 6 (IVT in each interval); (3) prove an upper bound of 6 by
+showing that between any two consecutive points in [r_1,2] where (f°3)'(x)=0,
+h(x)=f°3(x)-x is strictly monotonic, so at most one root of h per subinterval;
+then counting exactly 8 such critical points in (r_1,2) (5 from x or f(x) in
+{-1,1}, plus 3 from f(x)=0), hence at most 9 roots of h, hence at most 6
+roots of Q. So Q has exactly 6 real roots.
+
+--------------------------------------------------------------------------------
+(Add new reviewer feedback below this line, with submission name and date.)
+--------------------------------------------------------------------------------
+
+Not sufficiently unique — Count polynomials with coeffs in box / pairs + divisibility (e.g. a^n + b^n)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received (verbatim):
+"This prompt is not sufficiently unique. This is too similar to previous prompts that you've submitted relating to pairs of positive integers and checking divisibility with $a^n + b^n$ and similar terms. Please try to write more unique prompts in the future."
+
+Example (do not submit more of this type):
+Consider all monic cubic polynomials $x^3 + ax^2 + bx + c$ with integer coefficients $a,b,c$ each in $\{-5,\dots,5\}$. How many such polynomials have all three roots integers, and each root lies in the interval $[-3,3]$?
+
+Pattern: Reviewer groups this with "pairs of positive integers + divisibility (e.g. $a^n + b^n$)" and similar parameter-box counting tasks. Avoid: (1) count pairs/triples of integers in a range with divisibility or equation conditions, (2) count polynomials (or other objects) whose coefficients/parameters lie in a box and satisfy root/count conditions. Use genuinely different problem types.
+
+Action: Do not submit further "count objects in a parameter box" or "pairs (a,b) + divisibility / $a^n+b^n$" style problems. Vary problem types significantly.
+
+--------------------------------------------------------------------------------
+Solution quality: claims not explained/proven; no steps; AI signature detached
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received (verbatim):
+- The solution makes claims that are not properly explained or proven.
+- The content is not broken down into steps.
+- AI signature detached through the solution.
+
+Action: For every submission, (1) break the solution into clear steps, (2) explain
+or prove every non-obvious claim, (3) avoid generic or formulaic prose so the
+solution does not read as detached AI output.
+
+--------------------------------------------------------------------------------
+Not original: tan(x) = x (number of solutions) — widely discussed online
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The problem is a straightforward specialization of the widely discussed problem
+  tan(x) = x (usually posed generally or on standard intervals), so it appears
+  online under that broader form.
+- The author's solution (IVT plus monotonicity via f'(x) = sec^2 x − 1 = tan^2 x
+  and one root per (kπ, kπ+π/2)) also mirrors standard online arguments.
+
+References (do not submit problems that are specializations of these):
+- https://www.vaia.com/en-us/textbooks/math/precalculus-1-edition/chapter-5/problem-81-how-many-solutions-are-there-to-the-equation-tan-/
+- https://math.stackexchange.com/questions/2716563/calculus-en-tan-function
+- https://www.numerade.com/ask/question/prove-that-there-are-infinitely-many-solutions-to-the-equation-tanx-x-48575/
+- https://www.vaia.com/en-us/textbooks/math/algebra-2-2007-edition/chapter-13/problem-46-how-many-solutions-does-the-equation-xtan-x-have-/
+- https://math.stackexchange.com/questions/858277/proving-that-tanx-x-has-exactly-one-solution-per-interval-n-frac12-p
+
+Action: Avoid submitting "how many solutions does tan(x) = x have [on interval X]?"
+or any specialization of this classic problem; solution method is standard and
+widely reproduced online.
+
+--------------------------------------------------------------------------------
+Verbatim reviewer feedback — Originality / substantially similar (save as-is):
+According to the guidelines, submissions must be original. Please do not submit
+substantially similar tasks; just swapping values or parameters does not make a
+new or different task.
+You submitted several similar submissions with the same structure (defining a
+polynomial, define some variables in the equation, define a range for variables,
+ask how many variables make the polynomial to have a specific number of real
+roots (or no real root), and ...)
+Your similar submission is as follows:
+
+1-The polynomial $x^6 - 5x^5 + 5x^4 + 5x^2 - 5x + 1 = kx^3$ has exactly 4 distinct real roots. Find the number of integers $k$ with $|k| \leq 50$ for which this holds.
+
+2-Find the number of ordered pairs $(p, q)$ of integers with $|p| \leq 12$, $|q| \leq 12$ such that the polynomial $x^4 + px^2 + q$ is the product of two irreducible quadratics over $\mathbb{Q}$.
+
+3-Find the number of ordered pairs $(a, b)$ of integers with $|a|, |b| \leq 10$ such that $x^4 + (a - b)x^3 + abx^2 + (b - a)x + 1 = 0$ has exactly two real roots.
+
+(For a longer list of the same type, see "General guideline: Originality" below.)
+
+--------------------------------------------------------------------------------
+Submission: No 3-term AP subsets of {1,...,15} (SUBMISSION_QUESTION_97_no_3term_AP_subsets_1_15_mod1000.txt)
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The answer is not justified: "Carrying out this recursion over the 15 positions
+  (equivalently, checking each of the 2^15=32768 subsets against the 49 forbidden
+  triples) gives an exact total of". The solution is not allowed to rely on
+  external software or programmatic verification; it must be fully self-contained.
+  Provide a full proof.
+
+Verbatim reviewer feedback (save as-is):
+"The answer is not justified: \"Carrying out this recursion over the 15 positions
+(equivalently, checking each of the $2^{15}=32768$ subsets against the 49 forbidden
+triples) gives an exact total of\". Bare in mind the solution is not allowed to
+rely on external software (or programmatic verification) of any sort, it needs to
+be fully self-contained, so please provide a full proof.\"
+
+Fixes applied:
+- Replaced Step 2 with a complete recursion: F(n) = number of AP-free subsets
+  of {1,...,n}, with F(0)=1 and F(n)=F(n-1)+G(n), where G(n) counts AP-free
+  subsets of [n-1] that can be extended by n (no pair (a,b) with (a,b,n) an AP).
+  Forbidden pairs when adding n: (2b-n, b) for b = ceil((n+1)/2) to n-1.
+  Full table F(1) through F(15) is given so the count 2692 is verifiable by
+  hand (no program or "carrying out" handwave).
+
+--------------------------------------------------------------------------------
+Submission: Sum v_5(k!)·v_2(k!) mod 1000 (SUBMISSION_QUESTION_18_v5_v2_factorial_sum_mod1000.txt)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The topic used ("Number theory / elementary combinatorics (factorial valuations)")
+  is not currently open for submission. Reframe the problem so that it falls into
+  one of the currently open topics (e.g. Algebra, Linear Algebra, Calculus And
+  Differential Equations).
+- The answer (638) is correct and the reasoning is correct, but the solution is
+  probably too brute force to be accepted.
+
+Verbatim reviewer feedback (save as-is):
+"Thank you for your work.
+As you say yourself, 'The problem uses Legendre's formula for $v_p(n!)$, grouping
+by ranges where $v_5(k!)$ is constant, and summing products. Number theory /
+elementary combinatorics (factorial valuations)'. Neither of these topics is
+currently open for submission. Please reframe the problem so that it falls into
+one of the currently open topics. The answer is correct, and so is the reasoning,
+although it's probably too brute force to be accepted."
+
+Question (for reference):
+For a prime $p$ and positive integer $n$, let $v_p(n!)$ denote the $p$-adic
+valuation of $n!$ (the largest power of $p$ dividing $n!$). Compute
+$$\sum_{k=1}^{100} v_5(k!) \cdot v_2(k!) \bmod 1000.$$
+Answer: 638.
+
+Fixes to consider if resubmitting:
+- Classify under an open topic (e.g. Algebra) and justify in the Topic Explanation
+  (e.g. "finite sums and modular arithmetic; Legendre formula as algebraic
+  identity").
+- Or replace with a problem that naturally fits Algebra / Linear Algebra /
+  Calculus And Differential Equations without relying on number theory or
+  combinatorics as the primary topic.
+
+--------------------------------------------------------------------------------
+Originality — Subgroups and special elements of GL(n, F_p) / SL(n, F_p)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The submission is not sufficiently original. Please significantly revise to
+  comply with guidelines. It follows a pattern similar to previous questions.
+
+Pattern: 3.3 Subgroups and Special Elements of $GL(n, \mathbb{F}_p)$ and $SL(n, \mathbb{F}_p)$
+
+Identifying features:
+- The problem refers to a well-known matrix group $GL(n, \mathbb{F}_p)$ or $SL(n, \mathbb{F}_p)$ by name.
+- The question counts subgroups of a given order, elements with a specific trace, elements that are "quadratic residues" in the group (i.e. $A = X^2$ for some $X \in G$), or similar group-structural properties.
+- Uses group-theoretic language: order, conjugacy class, centralizer, quadratic residue.
+
+Example (do not submit more of this type):
+How many $2 \times 2$ matrices with entries in $\{0, 1, 2, 3, 4\}$ have multiplicative order exactly $4$ in $\mathrm{GL}_2(\mathbb{Z}/5\mathbb{Z})$?
+
+Verbatim reviewer feedback (save as-is):
+"Thank you for your submission. The submission is not sufficiently original. Please significantly revise the submission to comply with our guidelines. It follows a pattern similar to the previous question, as shown below: 3.3 Subgroups and Special Elements of $GL(n, \mathbb{F}_p)$ and $SL(n, \mathbb{F}_p)$ — Identifying features: The problem refers to a well-known matrix group $GL(n, \mathbb{F}_p)$ or $SL(n, \mathbb{F}_p)$ by name; the question counts subgroups of a given order, elements with a specific trace, elements that are 'quadratic residues' in the group (i.e. $A = X^2$ for some $X \in G$), or similar group-structural properties; uses group-theoretic language: order, conjugacy class, centralizer, quadratic residue. Example: How many $2 \times 2$ matrices with entries in $\{0, 1, 2, 3, 4\}$ have multiplicative order exactly $4$ in $\mathrm{GL}_2(\mathbb{Z}/5\mathbb{Z})$?"
+
+Action: Do not submit further problems that count elements/subgroups in GL_n(F_p) or SL_n(F_p) by order, trace, quadratic residue, or similar. Use genuinely different problem types (e.g. identities, sums, geometry, other combinatorics, non-group-structural linear algebra).
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Symmetric expressions in roots of a cubic
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This problem is not sufficiently unique. Do not submit further problems of this type.
+- Uniqueness: The submission is not sufficiently original. Please modify the submission significantly to adhere to our guidelines.
+- Too many tasks with the same recipe: "Some computations involving the roots of a polynomial of some small degree." Do not re-use the same idea over and over.
+
+Verbatim rejection: "Uniqueness: The submission is not sufficiently original. Please modify the submission significantly to adhere to our guidelines."
+Verbatim (recipe): "This cannot be accepted because there are too many tasks with this recipe (Some computations involving the roots of a polynomial of some small degree). Please make sure all your submissions are fully original and don't re-use the same idea over and over again."
+
+Pattern: Given a monic cubic with real roots $r > s > t$, ask to compute a symmetric (or cyclic) polynomial in the roots, e.g. $r^2 s + s^2 t + t^2 r$, $rs + st + tr$, or similar expressions reducible by Vieta and the relation $r^3 = ar + b$ (etc.). Swapping coefficients or the exact expression (e.g. $(r^2+s)(s^2+t)(t^2+r)$) does not make a new task. Same recipe: computations involving roots of a polynomial of small degree.
+
+Examples (do not submit more of this type):
+1. Let $r > s > t$ be the three real roots of $x^3 - 19x + 19 = 0$. Compute $r^2 s + s^2 t + t^2 r$.
+2. Let $r > s > t$ be the three real roots of $x^3 - 6x^2 + 9x - 1 = 0$. Compute $r^2 s + s^2 t + t^2 r$.
+3. Let $r$, $s$, $t$ be the three real roots of $x^3 - 13x + 13 = 0$. Compute $(r^2 + r + 1)(s^2 + s + 1)(t^2 + t + 1)$.
+4. Let $r > s > t$ be the three real roots of $x^3 - 13x + 13 = 0$. Compute $r^2 s + s^2 t + t^2 r$.
+5. Let $r > s > t$ be the three real roots of $x^3 - 9x + 9 = 0$. Compute $(r^2 + s)(s^2 + t)(t^2 + r) \bmod 1000$.
+
+Action: Avoid problems of the form "roots $r,s,t$ of $x^3 + ax + b = 0$ (or similar), compute [symmetric/cyclic polynomial in $r,s,t$]" or any computation involving roots of a polynomial of small degree. Use genuinely different problem types (e.g. combinatorics, number theory, geometry, different algebra).
+
+--------------------------------------------------------------------------------
+General guideline: Originality — avoid substantially similar tasks
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2 (submission guidelines).
+
+Feedback received:
+- Submissions must be original. Do not submit substantially similar tasks; just
+  swapping values or parameters does not make a new or different task.
+- Several similar submissions were identified with the same structure: define a
+  polynomial, define variables in the equation, define a range for variables,
+  ask how many (or count) parameter values yield a specific number of real roots
+  (or no real root), etc.
+
+Your similar submissions (same structure — do not submit more of this type):
+1. Find the number of integers $a$ with $|a| \leq 30$ such that
+   $x^4 + ax^3 + (a+2)x^2 + (a+2)x + 1 = 0$ has a root $r$ satisfying
+   $|r| = 1$ and $r \neq \pm 1$.
+2. The polynomial $x^6 - 5x^5 + 5x^4 + 5x^2 - 5x + 1 = kx^3$ has exactly 4
+   distinct real roots. Find the number of integers $k$ with $|k| \leq 50$
+   for which this holds.
+3. Find the number of ordered pairs $(p, q)$ of integers with $|p| \leq 12$,
+   $|q| \leq 12$ such that the polynomial $x^4 + px^2 + q$ is the product of
+   two irreducible quadratics over $\mathbb{Q}$.
+4. Find the number of ordered pairs $(a, b)$ of integers with $|a|, |b| \leq 10$
+   such that $x^4 + (a - b)x^3 + abx^2 + (b - a)x + 1 = 0$ has exactly two
+   real roots.
+5. Find the number of ordered pairs $(a, b)$ of positive integers with
+   $a, b \leq 20$ such that $P(x) = x^3 - (a+b)x^2 + abx - a^2$ has exactly
+   one real root and that root is irrational.
+6. The polynomial $x^5 + ax^3 + bx$ has exactly 3 distinct real roots. Find
+   the number of pairs $(a, b)$ of integers with $|a|, |b| \leq 12$ for which
+   this holds.
+7. Let $a$ and $b$ be integers with $|a| \le 10$ and $|b| \le 10$. How many
+   ordered pairs $(a,b)$ are there for which all four roots of the polynomial
+   $x^4 + a x^3 + b x^2 + a x + 1$ are real?
+8. The polynomial $P(x) = x^6 - 9x^4 + 24x^2 + k$ has exactly 2 distinct real
+   roots. For how many integers $k$ with $|k| \leq 80$ does this occur?
+
+Action: When creating new submissions, avoid this pattern (polynomial + parameter
+range + “how many parameters give X real roots / specific root property”).
+Choose genuinely different problem types (e.g. identities, sums, geometry,
+different combinatorics, etc.).
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Quartic with parameter range, count pairs (all roots real)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This problem is not sufficiently unique. Same pattern as polynomial +
+  parameter range + "how many (a,b) give X real roots" (see General guideline
+  above). Do not submit further problems of this type.
+
+Example (do not submit more of this type):
+Let $a$ and $b$ be integers with $|a| \le 10$ and $|b| \le 10$. How many ordered pairs $(a,b)$ are there for which all four roots of the polynomial
+$$x^4 + a x^3 + b x^2 + a x + 1$$
+are real?
+
+Action: Avoid problems of the form "polynomial in $x$ with parameters in a range; count parameter pairs for which all roots (or exactly k roots) are real". Use genuinely different problem types.
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Polynomial + parameter k, count k for exactly N real roots
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This problem is not sufficiently unique. Same pattern as polynomial +
+  parameter range + "how many parameters give exactly X real roots" (see
+  General guideline above). Do not submit further problems of this type.
+
+Example (do not submit more of this type):
+The polynomial $P(x) = x^6 - 9x^4 + 24x^2 + k$ has exactly 2 distinct real roots. For how many integers $k$ with $|k| \leq 80$ does this occur?
+
+Action: Avoid problems of the form "polynomial in $x$ with parameter $k$ in a range; for how many $k$ does the polynomial have exactly N distinct real roots". Use genuinely different problem types.
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Count ordered triples (a,b,c) in box satisfying equation
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- Uniqueness: The submission is not sufficiently original. Please modify the submission to adhere to our guidelines.
+
+Example (do not submit more of this type):
+Find the number of ordered triples $(a, b, c)$ of distinct positive integers with $a, b, c \leq 20$ such that $a^2 + b^2 + c^2 = 2(ab + bc) - ca$.
+
+Action: Avoid problems of the form "find the number of ordered pairs/triples of integers in a box satisfying [algebraic equation]"; same meta-structure as other rejected counting-in-box problems. Use genuinely different problem types.
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Coefficient in power of (1 + x + x^2)^n mod 1000
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This problem is not sufficiently unique. Do not submit further problems of this type.
+
+Pattern: Expand $(1 + x + x^2)^n$ (or similar trinomial power) and ask for a specific coefficient modulo 1000. Swapping exponent (e.g. 30) or power (e.g. 29) does not make a new task.
+
+Example (do not submit more of this type):
+Let $P(x) = (1 + x + x^2)^{30}$. Find the coefficient of $x^{29}$ in $P(x)$, modulo 1000.
+
+Action: Avoid problems of the form "coefficient of $x^k$ in $(1+x+x^2)^n$ (or similar) mod 1000". Use genuinely different problem types.
+
+--------------------------------------------------------------------------------
+Not sufficiently unique — Discriminant of polynomial mod 1000
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This problem is not sufficiently unique. Do not submit further problems of this type.
+
+Pattern: Given a polynomial (quadratic, cubic, quartic, etc.), compute its discriminant modulo 1000. Swapping coefficients or degree does not make a new task.
+
+Example (do not submit more of this type):
+Find the discriminant of $x^4 - 3x^2 + x + 1$ modulo $1000$.
+
+Action: Avoid problems of the form "discriminant of [polynomial] mod 1000". Use genuinely different problem types.
+
+--------------------------------------------------------------------------------
+Plagiarism / non-original: Pell-Lucas type problem (y - 1/y = 2, mod 1000)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- From y - 1/y = 2 we get y^2 - 2y - 1 = 0, hence y = 1 +/- sqrt(2); for odd n,
+  y^n - y^{-n} = (1+sqrt(2))^n + (1-sqrt(2))^n = Q_n (Pell-Lucas). The equation
+  y^2 - 2y - 1 = 0 and this setup appear on tiger-algebra.com. The specific
+  n=7 value (1+sqrt(2))^7 + (1-sqrt(2))^7 = 478 is explicitly posted online
+  and listed as Q_7 in OEIS; the problem is a direct specialization of that
+  material. The "mod 1000" is incidental. (References: brainly.in question
+  21067641, OEIS Pell-Lucas sequence.)
+- The candidate is therefore considered too close to existing online content;
+  avoid submitting problems that are direct specializations of well-known
+  sequences (Pell-Lucas, etc.) or step-by-step copies of drill sites.
+
+Action: Do not submit problems of the form "compute (1+sqrt(2))^n + (1-sqrt(2))^n
+mod 1000" or variants that reduce to Pell-Lucas / recurrence values that are
+trivially searchable (OEIS, Brainly, Tiger Algebra, etc.). Ensure problems
+require non-trivial, original reasoning rather than lookup.
+
+--------------------------------------------------------------------------------
+Not original: Adapted from Putnam archive (K. Kedlaya 2025)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The problem seems to be adapted from https://kskedlaya.org/putnam-archive/2025s.pdf, so this task is not original.
+
+Problem (do not submit — source: Putnam archive):
+Define $b_0 = 0$ and for $n \geq 0$ define $b_{n+1} = 2b_n^2 + b_n + 1$. For $k \geq 1$, let $V(k)$ be the exponent of $2$ (the $2$-adic valuation) in the integer $b_{2^{k+1}} - 2b_{2^k}$; that is, $V(k) = v_2\big(b_{2^{k+1}} - 2b_{2^k}\big)$ where $v_2(m)$ is the largest nonnegative integer $\alpha$ such that $2^\alpha \mid m$. Compute $V(3)$. Return the integer $V(3)$.
+
+Action: Do not submit problems adapted from contest archives (Putnam, IMO, etc.) or other published sources. Ensure submissions are original and not traceable to a known contest or webpage.
+
+--------------------------------------------------------------------------------
+Not accepted: Too many similar prompts (pairs/triples/n-tuples + condition)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The submission is not accepted because there are already many (20+) similar
+  prompts using the same recipe: "Find the number of pairs/triples/4-tuples of
+  small integers (finite combinations) such that divisibility condition /
+  Diophantine equation / a polynomial of degree <= 4 follows certain pattern."
+- Please stop making prompts like these: having too many similar prompts
+  reduces the quality (diversity) of the dataset.
+
+Verbatim reviewer feedback (save as-is):
+"The submission is not accepted because there are already many (20+) similar prompts using the same recipe: \"Find the number of pairs/triples/4-tuples of small integers (finite combinations) such that divisibility condition / Diophantine equation / a polynomial of degree \\le 4 follows certain pattern.\" Please stop making prompts like these: having too many similar prompts reduce the quality (diversity) of the dataset."
+
+Action: Do not submit prompts of the form: count pairs/triples/4-tuples of
+small integers (finite range) such that a divisibility condition, Diophantine
+equation, or polynomial of degree <= 4 satisfies some pattern. Choose
+different problem types to preserve dataset diversity.
+
+--------------------------------------------------------------------------------
+Originality failure: Beatty sequence / floor(n*sqrt(2)) alternating parity sums
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- The submission fails the originality requirement. The problem using floor of
+  n times sqrt(2) with alternating parity sums is a standard Beatty sequence
+  exercise found in contest archives and textbooks. This lacks the novelty
+  required for Riemann submission. The originality failure alone mandates
+  rejection per guidelines.
+- Additionally: answer format must be 000 not 0; topic should be Number Theory
+  not Algebra; grade level should be High School not Undergraduate.
+
+Action: Do not submit problems that are standard Beatty sequence exercises
+(floor(n*alpha), alternating sums, parity, etc.) from contest archives or
+textbooks. They lack novelty. Also use three-digit answer (000 not 0), correct
+topic (Number Theory vs Algebra), and correct grade level (High School vs
+Undergraduate) where specified by the form.
+
+--------------------------------------------------------------------------------
+Unsupported answer: do not cite a script; use mathematical classification
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2 (e.g. palindromic / root-count submission).
+
+Feedback received:
+- The final count is good and the provided list are correct, but the solution
+  said something like: "Accept the triple iff every root has zero imaginary
+  part (within numerical tolerance) and real part in [-2, 2]. This is
+  implemented in a short script (e.g. enum_palindromic.py in the project)".
+  Obviously such a script is not provided and is not reproducible; although
+  the list is complete, you do not show how it was constructed. Therefore the
+  final answer is unsupported and the submission does not meet project quality
+  standards.
+- Fix: Use a mathematical classification instead of that sentence mentioning a
+  script, and resubmit.
+
+Action: Never justify a count or list by referring to a script or program that
+is not in the submission. Show how the list/count was constructed using
+mathematical reasoning (classification, recurrence, explicit criteria) so the
+answer is reproducible and meets project quality standards.
+
+--------------------------------------------------------------------------------
+Not accepted: Heavy calculations + unjustified table + ambiguous prompt
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- This type of submission is not accepted. According to the guideline,
+  submissions that require heavy calculations are not accepted.
+- Your solution should justify your final answer. Solutions that require heavy
+  calculations or that do not show the calculations and how the final answer is
+  obtained are not accepted.
+- In step 4 you have "Carrying out this procedure for every n = 1, ..., 200
+  yields the following table": (1) you have not shown your calculation to
+  justify your answers; (2) calculating all those values is considered heavy
+  calculation and is not allowed in this project.
+- Furthermore, your prompt is ambiguous: you must mention that a and b are
+  integers; otherwise if they are considered real numbers that would be a
+  different problem. Please revise your prompt to meet the guideline and
+  resubmit.
+
+Action: Do not submit problems whose solution requires heavy calculation (e.g.
+computing a full table for n = 1,...,200 without showing the steps). Justify
+the final answer by showing the calculations or by a mathematical argument
+that makes the count/values reproducible. State all variable types in the
+prompt (e.g. "a and b are integers") to avoid ambiguity.
+
+--------------------------------------------------------------------------------
+Originality rejection: matrix involutions over Z_16 (verbatim)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received (verbatim):
+According to the guidelines, submissions must be original. Please do not submit
+substantially similar tasks; just swapping values or parameters does not make a
+new or different task. You submitted several similar submissions with the same
+structure, and it is not accepted. Your similar submission is as follows:
+Let $R = \mathbb{Z}_{16}$ denote the ring of integers modulo 16. Let $M_2(R)$ be
+the set of all $2 \times 2$ matrices with entries in $R$. We define the set of
+involutions $S$ as:
+$$ S = \{ A \in M_2(R) \mid A^2 = I \} $$
+where $I$ is the $2 \times 2$ identity matrix. Calculate the cardinality of the
+set $S$.
+
+Action: Avoid “count objects in a finite ring/module by brute force / small-case
+enumeration” prompts when the structure matches previously submitted recipes.
+Prefer different problem types and genuinely new solution ideas.
+
+--------------------------------------------------------------------------------
+Not acceptable: black-box reduction chain (det S = 125) / show full derivation
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Feedback received:
+- Previous review flagged step 4, and it still isn't acceptable.
+- “continuing similar reductions … yields $\det S=125$” without giving the
+  actual reduction chain is a black box and is not acceptable under the project
+  guidelines.
+- The solution is not allowed to rely on external software (or programmatic
+  verification) of any sort; it needs to be fully self-contained.
+- Fix: Either show a full derivation (the full reduction chain) or provide a
+  mathematical shortcut that justifies the claim.
+
+Action: Do not skip multi-step reductions with phrases like “continuing
+similarly…”. Either show the complete reduction chain, or replace it with a
+clear mathematical shortcut/lemma that makes the result checkable without
+software.
+--------------------------------------------------------------------------------
+NOT ACCEPTABLE: floor / ceiling functions in the prompt (rounding ban)
+--------------------------------------------------------------------------------
+Date / context: Riemann Phase 2.
+
+Problem submitted:
+  Compute $\sum_{k=1}^{100} \lfloor k(\sqrt{3}-\sqrt{2}) \rfloor \bmod 1000$.
+  (Answer: 554)
+
+Feedback received:
+  "The project guidelines prohibit rounding in any way to obtain an integer
+   final answer. This includes floor and ceiling functions, which you use in
+   the prompt. Please revise the prompt so that you reach an integer final
+   answer naturally."
+
+Action:
+  - NEVER use floor $\lfloor \cdot \rfloor$ or ceiling $\lceil \cdot \rceil$
+    functions anywhere in the problem prompt.
+  - Do NOT frame a problem as "compute $\sum \lfloor f(k) \rfloor \bmod N$"
+    or any other sum/expression whose integer nature relies on flooring.
+  - The answer must be a natural integer by the algebraic/analytic structure
+    of the problem itself (e.g. a trace, a resultant, a coefficient, a power
+    sum, a count) — not obtained by truncation or rounding.
+  - Beatty sequences, floor-sum identities (Hermite, reciprocity), lattice-point
+    counting via floor are all banned as the primary vehicle for reaching an
+    integer answer.
+  - If you want to use irrational numbers, the answer must emerge as an integer
+    naturally (e.g. norm of an algebraic integer, resultant, symmetric function
+    of algebraic conjugates, etc.).
